@@ -2,7 +2,7 @@ import requests
 import pytest
 
 URL = 'https://api.pokemonbattle.ru/v2'
-Token = 'a11a6dee93c9793c186159cd7a3ef392'
+Token = '<YOUR_TOKEN>'
 Header = {'Content-Type' : 'application/json', 'trainer_token' :Token}
 Trainer_id = '12478'
 Trainer_name = 'Nastya'
@@ -24,10 +24,8 @@ def test_parametrize(key, value):
 def test_trainer_name():
     response_trainer_name = requests.get(url=f'{URL}/me', params={'trainer_id': Trainer_id}, headers=Header)
     response_trainer_name.raise_for_status() 
-    print(response_trainer_name) 
     assert response_trainer_name.json()['data'][0]['trainer_name'] == 'Nastya'
 
 def test_trainer_status_code():
     response_trainer_status_code = requests.get(url = f'{URL}/trainers', params = {'trainer_id' : Trainer_id}, headers=Header)
-    print(response_trainer_status_code)
     assert response_trainer_status_code.status_code == 200
